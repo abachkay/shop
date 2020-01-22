@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ProductModel } from './product.model';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ProductsService {
-
   constructor() { }
 
   getProducts() {
@@ -14,5 +15,4 @@ export class ProductsService {
         new ProductModel('Product4', 'Description4', 65),
       ];
   }
-
 }
