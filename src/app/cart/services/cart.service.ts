@@ -9,9 +9,10 @@ export class CartService {
   constructor() { }
 
   getCart(): CartItemModel[] {
-    return [
-      new CartItemModel('aaa', 5),
-      new CartItemModel('bbb', 4)
-    ];
+    return null;
+    // return [
+    //   new CartItemModel('product1', 5),
+    //   new CartItemModel('product2', 4)
+    // ];
   }
 }
