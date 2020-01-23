@@ -13,7 +13,7 @@ export class FirstComponent implements OnInit {
   price: number;
   isAvailable: boolean;
   previousPrices: number[];
-  
+
   private tags: string[];
   private category: Category;
 
