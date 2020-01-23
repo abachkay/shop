@@ -1,5 +1,5 @@
 1. Generated component First.
-    Public fields:  
+  Public fields:  
         name: string;
         description: string;
         price: number;
