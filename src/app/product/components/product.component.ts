@@ -6,6 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
+  // Если передавать отдельно каждое свойство, то инпутов будет много
   @Input() name: string;
   @Input() description: string;
   @Input() price: number;

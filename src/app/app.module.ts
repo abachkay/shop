@@ -14,7 +14,7 @@ import { CartItemComponent } from './cart-item/components/cart-item.component';
 @NgModule({
   declarations: [
     AppComponent,
-    FirstComponent,
+    // FirstComponent, // лишний раз задеклаиррован
     FirstComponent,
     ProductComponent,
     ProductListComponent,
