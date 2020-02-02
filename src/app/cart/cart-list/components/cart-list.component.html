@@ -1,8 +1,7 @@
 <h4>
-    Cart
-  </h4>
-  <div *ngIf="cart; else emptyCart">
-    <app-cart-item *ngFor="let cartItem of cart" [product]="cartItem.product" [quantity]="cartItem.quantity">
-    </app-cart-item>
-  </div>
-  <ng-template #emptyCart>Cart is empty</ng-template>
+  Cart
+</h4>
+<div *ngIf="cartItems; else emptyCart">
+  <app-cart-item *ngFor="let cartItem of cartItems" [cartItem]="cartItem"></app-cart-item>
+</div>
+<ng-template #emptyCart>Cart is empty</ng-template>

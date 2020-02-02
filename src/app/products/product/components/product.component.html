@@ -2,5 +2,6 @@
   <li> Name: {{product.name}} </li>
   <li> Description: {{product.description}} </li>
   <li> Price: {{product.price}} </li>
-  <button (click)="onBuy()"> Buy </button>
+  <li> Quantity: {{product.quantity}} </li>
+  <button (click)="onBuy()" [disabled]="!product.quantity"> Buy </button>
 </ul>
