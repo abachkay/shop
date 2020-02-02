@@ -1,15 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
 
+import { ProductModel } from '../models/product.model';
+
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
-  // Если передавать отдельно каждое свойство, то инпутов будет много
-  @Input() name: string;
-  @Input() description: string;
-  @Input() price: number;
+  @Input() product: ProductModel;
 
   constructor() { }
 
@@ -17,7 +16,6 @@ export class ProductComponent implements OnInit {
   }
 
   onBuy() {
-    console.log(`You bought ${this.name}`);
+    console.log(`You bought ${this.product.name}`);
   }
-
 }

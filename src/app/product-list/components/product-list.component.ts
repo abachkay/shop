@@ -9,7 +9,6 @@ import { ProductsService } from '../../product/services/products.service';
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
-
   products: ProductModel[];
 
   constructor(
@@ -19,5 +18,4 @@ export class ProductListComponent implements OnInit {
   ngOnInit() {
     this.products = this.productsService.getProducts();
   }
-
 }
