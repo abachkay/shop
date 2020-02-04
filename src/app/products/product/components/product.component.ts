@@ -1,8 +1,7 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 
 import { ProductModel } from '../models/product.model';
-import { CommunicatorService } from 'src/app/shared/services/communicator.service';
-import { CartItemModel } from 'src/app/cart/cart-item/models/cart-item.model';
+import { CartService } from 'src/app/cart/cart-list/services/cart.service';
 
 @Component({
   selector: 'app-product',
@@ -14,14 +13,15 @@ export class ProductComponent implements OnInit {
   @Input() product: ProductModel;
 
   constructor(
-    private communicatorService: CommunicatorService) { }
+    private cartService: CartService) { }
 
   ngOnInit() {
   }
 
   onBuy() {
-    this.product.quantity--;
-    console.log(`You bought ${this.product.name}`);
-    this.communicatorService.publishData(this.product.name);
+    if (this.product.quantity) {
+      this.cartService.addProduct(this.product);
+      this.product.quantity--;
+    }
   }
 }

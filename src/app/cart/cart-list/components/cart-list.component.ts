@@ -3,7 +3,8 @@ import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/
 import { Subscription } from 'rxjs';
 
 import { CartItemModel } from 'src/app/cart/cart-item/models/cart-item.model';
-import { CommunicatorService } from 'src/app/shared/services/communicator.service';
+import { CartService } from 'src/app/cart/cart-list/services/cart.service';
+import { ProductModel } from 'src/app/products/product/models/product.model';
 
 @Component({
   selector: 'app-cart-list',
@@ -16,23 +17,28 @@ export class CartListComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription;
 
-  constructor(private communicatorService: CommunicatorService) { }
+  constructor(private cartService: CartService) { }
 
   ngOnInit() {
-    this.subscription = this.communicatorService.channel$.subscribe(data => this.addItemToCart(data));
+    this.subscription = this.cartService.addProductChannel$.subscribe(product => this.productBoughtHandler(product));
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 
-  private addItemToCart(data: string): void {
+  onItemDeleted(cartItem: CartItemModel) {
+    this.cartItems.splice(this.cartItems.indexOf(cartItem), 1);
+
+  }
+
+  private productBoughtHandler(product: ProductModel): void {
     this.cartItems = this.cartItems || [];
-    const cartItem = this.cartItems.find(item => item.product === data);
+    const cartItem = this.cartItems.find(item => item.product === product.name);
 
     if (cartItem) {
       cartItem.quantity++;
     } else {
-      this.cartItems.push(new CartItemModel(data, 1));
+      this.cartItems.push(new CartItemModel(product.name, 1, product.quantity));
     }
   }
 }
