@@ -10,26 +10,11 @@ import { CartItemModel } from '../../cart-item/models/cart-item.model';
 })
 export class CartService {
   private addProductChannel = new Subject<ProductModel>();
-  private removeProductChannel = new Subject<CartItemModel>();
-  private incrementQuantityChannel = new Subject<string>();
-  private decrementQuantityChannel = new Subject<string>();
 
   addProductChannel$ = this.addProductChannel.asObservable();
-  removeProductChannel$ = this.removeProductChannel.asObservable();
-  incrementQuantityChannel$ = this.incrementQuantityChannel.asObservable();
-  decrementQuantityChannel$ = this.decrementQuantityChannel.asObservable();
 
   addProduct(product: ProductModel) {
     this.addProductChannel.next(product);
-  }
-  removeProduct(cartItem: CartItemModel) {
-    this.removeProductChannel.next(cartItem);
-  }
-  incrementProduct(productName: string) {
-    this.incrementQuantityChannel.next(productName);
-  }
-  decrementProduct(productName: string) {
-    this.decrementQuantityChannel.next(productName);
   }
   getTotalQuantity(cartItems: CartItemModel[]): number {
     return cartItems.reduce((accumulator, current) => accumulator + current.quantity, 0);
