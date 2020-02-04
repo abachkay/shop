@@ -1,0 +1,5 @@
+.cart-item-selected {
+    display: block;
+    background-color: yellow;
+    color: blue;
+}

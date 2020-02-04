@@ -1,0 +1,10 @@
+<h4>
+  Cart
+</h4>
+<div *ngIf="cartItems && cartItems.length else emptyCart">
+  <p>Total quantity: {{totalQuantity}}</p>
+  <p>Total price: {{totalPrice}}</p>
+  <app-cart-item appHighlight *ngFor="let cartItem of cartItems" [cartItem]="cartItem" (cartItemDeleted)="onItemDeleted($event)">
+  </app-cart-item>
+</div>
+<ng-template #emptyCart>Cart is empty</ng-template>

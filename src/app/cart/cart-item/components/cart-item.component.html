@@ -1,0 +1,9 @@
+<ul>
+    <li>Name: {{cartItem.product.name}}</li>
+    <li>Quantity: {{cartItem.quantity}}</li>
+    <li>
+        <button (click)="onAddItem()" [disabled]="!cartItem.product.quantity">+</button>
+        <button (click)="onSubtractItem()">-</button>
+        <button (click)="onDeleteItem()">Delete from cart</button>
+    </li>
+</ul>
