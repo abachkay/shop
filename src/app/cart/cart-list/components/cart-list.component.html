@@ -1,7 +1,7 @@
 <h4>
   Cart
 </h4>
-<div *ngIf="cartItems; else emptyCart">
+<div *ngIf="cartItems && cartItems.length else emptyCart">
   <app-cart-item *ngFor="let cartItem of cartItems" [cartItem]="cartItem" (cartItemDeleted)="onItemDeleted($event)"></app-cart-item>
 </div>
 <ng-template #emptyCart>Cart is empty</ng-template>

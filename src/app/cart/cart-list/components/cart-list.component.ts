@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Subscription } from 'rxjs';
 
@@ -9,8 +9,7 @@ import { ProductModel } from 'src/app/products/product/models/product.model';
 @Component({
   selector: 'app-cart-list',
   templateUrl: './cart-list.component.html',
-  styleUrls: ['./cart-list.component.css'],
-  // changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./cart-list.component.css']
 })
 export class CartListComponent implements OnInit, OnDestroy {
   cartItems: CartItemModel[];

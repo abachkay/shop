@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Subscription } from 'rxjs';
 
@@ -10,12 +10,11 @@ import { CartItemModel } from 'src/app/cart/cart-item/models/cart-item.model';
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.css'],
-  // changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit, OnDestroy {
   products: ProductModel[];
-  private subscription: Subscription;
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private productsService: ProductsService,
@@ -23,12 +22,21 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.products = this.productsService.getProducts();
-    this.subscription = this.cartService.incrementQuantityChannel$.subscribe(data => this.productIncrementedHandler(data));
-    this.subscription = this.cartService.decrementQuantityChannel$.subscribe(data => this.productDecrementedHandler(data));
-    this.subscription = this.cartService.removeProductChannel$.subscribe(data => this.productRemovedHandler(data));
+    this.subscriptions.push(this.cartService.incrementQuantityChannel$.subscribe(data => this.productIncrementedHandler(data)));
+    this.subscriptions.push(this.cartService.decrementQuantityChannel$.subscribe(data => this.productDecrementedHandler(data)));
+    this.subscriptions.push(this.cartService.removeProductChannel$.subscribe(data => this.productRemovedHandler(data)));
   }
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    for (let subscription of this.subscriptions) {
+      subscription.unsubscribe();
+    }
+  }
+
+  onProductBought(product: ProductModel) {
+    if (product.quantity) {
+      this.cartService.addProduct(product);
+      product.quantity--;
+    }
   }
 
   private productIncrementedHandler(productName: string): void {
