@@ -12,9 +12,17 @@ import { ProductModel } from 'src/app/products/product/models/product.model';
   styleUrls: ['./cart-list.component.css']
 })
 export class CartListComponent implements OnInit, OnDestroy {
-  cartItems: CartItemModel[];
+  cartItems: CartItemModel[] = [];
 
   private subscription: Subscription;
+
+  get totalQuantity(): number {
+    return this.cartService.getTotalQuantity(this.cartItems);
+  }
+
+  get totalPrice(): number {
+    return this.cartService.getTotalPrice(this.cartItems);
+  }
 
   constructor(private cartService: CartService) { }
 
@@ -31,13 +39,12 @@ export class CartListComponent implements OnInit, OnDestroy {
   }
 
   private productBoughtHandler(product: ProductModel): void {
-    this.cartItems = this.cartItems || [];
-    const cartItem = this.cartItems.find(item => item.product === product.name);
+    const cartItem = this.cartItems.find(item => item.product.name === product.name);
 
     if (cartItem) {
       cartItem.quantity++;
     } else {
-      this.cartItems.push(new CartItemModel(product.name, 1, product.quantity));
+      this.cartItems.push(new CartItemModel(product, 1));
     }
   }
 }

@@ -20,7 +20,7 @@ export class CartItemComponent implements OnInit {
 
   onAddItem(item: CartItemModel) {
     this.cartItem.quantity++;
-    this.cartService.incrementProduct(item.product);
+    this.cartService.incrementProduct(item.product.name);
   }
   onSubtractItem(item: CartItemModel) {
     this.cartItem.quantity--;
@@ -29,7 +29,7 @@ export class CartItemComponent implements OnInit {
       this.cartItemDeleted.emit(this.cartItem);
     }
 
-    this.cartService.decrementProduct(item.product);
+    this.cartService.decrementProduct(item.product.name);
   }
   onDeleteItem(item: CartItemModel) {
     this.cartItemDeleted.emit(this.cartItem);

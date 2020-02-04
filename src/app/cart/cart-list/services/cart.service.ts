@@ -31,4 +31,10 @@ export class CartService {
   decrementProduct(productName: string) {
     this.decrementQuantityChannel.next(productName);
   }
+  getTotalQuantity(cartItems: CartItemModel[]): number {
+    return cartItems.reduce((accumulator, current) => accumulator + current.quantity, 0);
+  }
+  getTotalPrice(cartItems: CartItemModel[]): number {
+    return cartItems.reduce((accumulator, current) => accumulator + current.product.price * current.quantity, 0);
+  }
 }

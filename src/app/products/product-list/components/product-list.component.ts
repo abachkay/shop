@@ -54,7 +54,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
     product.quantity++;
   }
   private productRemovedHandler(cartItemModel: CartItemModel): void {
-    const product = this.products.find(item => item.name === cartItemModel.product);
+    const product = this.products.find(item => item.name === cartItemModel.product.name);
 
     product.quantity += cartItemModel.quantity;
   }
