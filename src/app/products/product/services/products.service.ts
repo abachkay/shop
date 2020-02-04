@@ -11,8 +11,8 @@ export class ProductsService {
   getProducts() {
     return [
       new ProductModel('Product1', 'Description1', 44, 3),
-      new ProductModel('Product2', 'Description2', 35, 2),
-      new ProductModel('Product3', 'Description3', 32, 5),
+      new ProductModel('Product2', 'Description2', 35, 5),
+      new ProductModel('Product3', 'Description3', 32, 12),
       new ProductModel('Product4', 'Description4', 65, 245),
     ];
   }
