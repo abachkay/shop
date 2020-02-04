@@ -27,7 +27,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.cartService.removeProductChannel$.subscribe(data => this.productRemovedHandler(data)));
   }
   ngOnDestroy() {
-    for (let subscription of this.subscriptions) {
+    for (const subscription of this.subscriptions) {
       subscription.unsubscribe();
     }
   }
