@@ -2,7 +2,7 @@ Version 2
 
 1. Removed component First.  
 2. Modified AppComponent  
-  2.1. Added <h1> with template variable appHeader.  
+  2.1. Added h1 with template variable appHeader.  
   2.2. In component added field header with attribute @ViewChild to get ElementRef for header, then in ngAfterInit set header value to "Home Tasks".  
 3. Broke application into 5 modules AppModule, ProductsModule, CartModule, SharedModule, OrdersModule.  
 4. Modified component product  
