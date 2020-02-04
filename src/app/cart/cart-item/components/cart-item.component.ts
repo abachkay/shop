@@ -9,6 +9,7 @@ import { CartItemModel } from '../models/cart-item.model';
 })
 export class CartItemComponent implements OnInit {
   @Input() cartItem: CartItemModel;
+
   @Output() cartItemDeleted = new EventEmitter<CartItemModel>();
 
   ngOnInit() {
