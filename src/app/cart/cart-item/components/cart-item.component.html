@@ -2,8 +2,8 @@
     <li>Name: {{cartItem.product.name}}</li>
     <li>Quantity: {{cartItem.quantity}}</li>
     <li>
-        <button (click)="onAddItem(cartItem)" [disabled]="!cartItem.product.quantity">+</button>
-        <button (click)="onSubtractItem(cartItem)">-</button>
-        <button (click)="onDeleteItem(cartItem)">Delete from cart</button>
+        <button (click)="onAddItem()" [disabled]="!cartItem.product.quantity">+</button>
+        <button (click)="onSubtractItem()">-</button>
+        <button (click)="onDeleteItem()">Delete from cart</button>
     </li>
 </ul>
