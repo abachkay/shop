@@ -1,3 +1,4 @@
+import { LocalStorageService } from './../../../core/services/local-storage.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { ProductModel } from '../../product/models/product.model';
@@ -14,16 +15,24 @@ export class ProductListComponent implements OnInit {
 
   constructor(
     private productsService: ProductsService,
-    private cartService: CartService) { }
+    private cartService: CartService,
+    private localStorageService: LocalStorageService) { }
 
   ngOnInit() {
     this.products = this.productsService.getProducts();
+    const cartProducts = JSON.parse(this.localStorageService.getItem('cartProducts'))
+
+    if (cartProducts) {
+      for (const cartProduct of cartProducts) {
+        const product = this.products.find(p => p.name === cartProduct.product.name);
+        if (product) {
+          product.quantity -= cartProduct.quantity;
+        }
+      }
+    }
   }
 
   onProductBought(product: ProductModel) {
-    if (product.quantity) {
-      this.cartService.addProduct(product);
-      product.quantity--;
-    }
+    this.cartService.addProduct(product);
   }
 }

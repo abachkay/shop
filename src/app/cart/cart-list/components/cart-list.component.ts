@@ -1,50 +1,40 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { Subscription } from 'rxjs';
-
-import { CartItemModel } from 'src/app/cart/cart-item/models/cart-item.model';
+import { CartProductModel } from 'src/app/cart/cart-item/models/cart-product.model';
 import { CartService } from 'src/app/cart/cart-list/services/cart.service';
-import { ProductModel } from 'src/app/products/product/models/product.model';
 
 @Component({
   selector: 'app-cart-list',
   templateUrl: './cart-list.component.html',
   styleUrls: ['./cart-list.component.css']
 })
-export class CartListComponent implements OnInit, OnDestroy {
-  cartItems: CartItemModel[] = [];
-
-  private subscription: Subscription;
+export class CartListComponent implements OnInit {
+  get cartProducts(): CartProductModel[] {
+    return this.cartService.cartProducts;
+  }
 
   get totalQuantity(): number {
-    return this.cartService.getTotalQuantity(this.cartItems);
+    return this.cartService.totalQuantity;
   }
 
   get totalPrice(): number {
-    return this.cartService.getTotalPrice(this.cartItems);
+    return this.cartService.totalSum;
   }
 
   constructor(private cartService: CartService) { }
 
   ngOnInit() {
-    this.subscription = this.cartService.addProductChannel$.subscribe(product => this.productBoughtHandler(product));
-  }
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 
-  onItemDeleted(cartItem: CartItemModel) {
-    this.cartItems.splice(this.cartItems.indexOf(cartItem), 1);
-
+  onCartProductQuantityIncreased(cartProduct: CartProductModel) {
+    this.cartService.increaseQuantity(cartProduct);
   }
 
-  private productBoughtHandler(product: ProductModel): void {
-    const cartItem = this.cartItems.find(item => item.product.name === product.name);
+  onCartProductQuantityDecreased(cartProduct: CartProductModel) {
+    this.cartService.decreaseQuantity(cartProduct);
+  }
 
-    if (cartItem) {
-      cartItem.quantity++;
-    } else {
-      this.cartItems.push(new CartItemModel(product, 1));
-    }
+  onCartProductRemoved(cartProduct: CartProductModel) {
+    this.cartService.removeProduct(cartProduct);
   }
 }
