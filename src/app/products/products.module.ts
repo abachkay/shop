@@ -9,6 +9,6 @@ import { ProductListComponent } from './product-list/components/product-list.com
   imports: [
     CommonModule
   ],
-  exports: [ProductComponent, ProductListComponent]
+  exports: [ProductListComponent] // одного публичного компонента достаточно
 })
 export class ProductsModule { }

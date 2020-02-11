@@ -27,3 +27,4 @@ export class ProductListComponent implements OnInit {
     }
   }
 }
+// Думаю, что папка components тут лишняя, можно ее убрать
