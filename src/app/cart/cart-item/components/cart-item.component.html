@@ -2,7 +2,7 @@
   <li>Name: {{cartProduct.product.name}}</li>
   <li>Quantity: {{cartProduct.quantity}}</li>
   <li>
-    <button (click)="onIncreaseQuantity()" [disabled]="!cartProduct.product.quantity">+</button>
+    <button (click)="onIncreaseQuantity()" [disabled]="cartProduct.quantity >= cartProduct.product.quantity">+</button>
     <button (click)="onDecreaseQuantity()">-</button>
     <button (click)="onRemoveProduct()">Delete from cart</button>
   </li>
