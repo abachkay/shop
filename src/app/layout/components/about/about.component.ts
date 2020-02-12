@@ -1,11 +1,10 @@
+import { Component, OnInit, InjectionToken, Inject, Optional } from '@angular/core';
+
 import { ConfigOptionsService } from './../../../core/services/config-options.service';
 import { constants } from './../../../core/services/constant.service';
 import { LocalStorageService } from './../../../core/services/local-storage.service';
-import { Component, OnInit, InjectionToken, Inject, Optional } from '@angular/core';
 import { randomStringGeneratorFactory } from 'src/app/core/services/generator.service';
-import { inject } from '@angular/core/testing';
 import { ConfigOptionsModel } from 'src/app/core/models/config-options.model';
-import { JsonPipe } from '@angular/common';
 
 const Constants = new InjectionToken<any[]>('Constants');
 const Rsg5 = new InjectionToken<any[]>('Rsg5');

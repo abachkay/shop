@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+
 import { ConfigOptionsModel } from '../models/config-options.model';
 
 @Injectable({
