@@ -11,6 +11,6 @@ import { SharedModule } from '../shared/shared.module';
     CommonModule,
     SharedModule
   ],
-  exports: [CartListComponent] // одного публичного достаточно
+  exports: [CartListComponent]
 })
 export class CartModule { }

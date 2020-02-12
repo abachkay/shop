@@ -2,8 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Subscription } from 'rxjs';
 
-import { ProductModel } from '../../product/models/product.model';
-import { ProductsService } from '../../product/services/products.service';
+import { ProductModel } from '../product/models/product.model';
+import { ProductsService } from '../product/services/products.service';
 import { CartService } from 'src/app/cart/cart-list/services/cart.service';
 import { LocalStorageService } from 'src/app/core/services/local-storage.service';
 import { CartProductModel } from 'src/app/cart/cart-item/models/cart-product.model';
@@ -60,4 +60,3 @@ export class ProductListComponent implements OnInit, OnDestroy {
     }
   }
 }
-// Думаю, что папка components тут лишняя, можно ее убрать
