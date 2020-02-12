@@ -1,34 +1,31 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 
-import { CartItemModel } from '../models/cart-item.model';
+import { CartProductModel } from '../models/cart-product.model';
 
 @Component({
   selector: 'app-cart-item',
   templateUrl: './cart-item.component.html',
-  styleUrls: ['./cart-item.component.css']
+  styleUrls: ['./cart-item.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CartItemComponent implements OnInit {
-  @Input() cartItem: CartItemModel;
+  @Input() cartProduct: CartProductModel;
 
-  @Output() cartItemDeleted = new EventEmitter<CartItemModel>();
+  @Output() cartProductRemoved = new EventEmitter<CartProductModel>();
+  @Output() cartProductQuantityIncreased = new EventEmitter<CartProductModel>();
+  @Output() cartProductQuantityDecreased = new EventEmitter<CartProductModel>();
 
-  ngOnInit() {
+  ngOnInit() { }
+
+  onIncreaseQuantity() {
+    this.cartProductQuantityIncreased.emit(this.cartProduct);
   }
 
-  onAddItem() {
-    this.cartItem.quantity++;
-    this.cartItem.product.quantity--;
+  onDecreaseQuantity() {
+    this.cartProductQuantityDecreased.emit(this.cartProduct);
   }
-  onSubtractItem() {
-    this.cartItem.quantity--;
-    this.cartItem.product.quantity++;
 
-    if (!this.cartItem.quantity) {
-      this.cartItemDeleted.emit(this.cartItem);
-    }
-  }
-  onDeleteItem() {
-    this.cartItemDeleted.emit(this.cartItem);
-    this.cartItem.product.quantity += this.cartItem.quantity;
+  onRemoveProduct() {
+    this.cartProductRemoved.emit(this.cartProduct);
   }
 }

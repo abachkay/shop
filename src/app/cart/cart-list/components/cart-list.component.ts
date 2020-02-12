@@ -2,9 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Subscription } from 'rxjs';
 
-import { CartItemModel } from 'src/app/cart/cart-item/models/cart-item.model';
 import { CartService } from 'src/app/cart/cart-list/services/cart.service';
-import { ProductModel } from 'src/app/products/product/models/product.model';
+import { CartProductModel } from './../../cart-item/models/cart-product.model';
 
 @Component({
   selector: 'app-cart-list',
@@ -12,39 +11,41 @@ import { ProductModel } from 'src/app/products/product/models/product.model';
   styleUrls: ['./cart-list.component.css']
 })
 export class CartListComponent implements OnInit, OnDestroy {
-  cartItems: CartItemModel[] = [];
+  cartProducts: CartProductModel[];
 
-  private subscription: Subscription;
+  private subsciption: Subscription;
 
   get totalQuantity(): number {
-    return this.cartService.getTotalQuantity(this.cartItems);
+    return this.cartService.totalQuantity;
   }
 
   get totalPrice(): number {
-    return this.cartService.getTotalPrice(this.cartItems);
+    return this.cartService.totalSum;
   }
 
   constructor(private cartService: CartService) { }
 
   ngOnInit() {
-    this.subscription = this.cartService.addProductChannel$.subscribe(product => this.productBoughtHandler(product));
+    this.cartProducts = this.cartService.cartProducts.filter(cartProduct => cartProduct.quantity);
+
+    this.subsciption = this.cartService.cartProductsChannel$.subscribe(cartProducts =>
+      this.cartProducts = cartProducts.filter(cartProduct => cartProduct.quantity).map(cartProduct => ({ ...cartProduct }))
+    );
   }
+
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.subsciption.unsubscribe();
   }
 
-  onItemDeleted(cartItem: CartItemModel) {
-    this.cartItems.splice(this.cartItems.indexOf(cartItem), 1);
-
+  onCartProductQuantityIncreased(cartProduct: CartProductModel) {
+    this.cartService.increaseQuantity(cartProduct.product.name);
   }
 
-  private productBoughtHandler(product: ProductModel): void {
-    const cartItem = this.cartItems.find(item => item.product.name === product.name);
+  onCartProductQuantityDecreased(cartProduct: CartProductModel) {
+    this.cartService.decreaseQuantity(cartProduct.product.name);
+  }
 
-    if (cartItem) {
-      cartItem.quantity++;
-    } else {
-      this.cartItems.push(new CartItemModel(product, 1));
-    }
+  onCartProductRemoved(cartProduct: CartProductModel) {
+    this.cartService.removeProduct(cartProduct.product.name);
   }
 }
