@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { ProductsModule } from './products/products.module';
@@ -14,11 +13,10 @@ import { SharedModule } from './shared/shared.module';
     AboutComponent
   ],
   imports: [
+    SharedModule,
     BrowserModule,
-    FormsModule,
     ProductsModule,
-    CartModule,
-    SharedModule
+    CartModule
   ],
   bootstrap: [AppComponent]
 })
