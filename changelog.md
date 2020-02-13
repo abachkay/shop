@@ -1,5 +1,34 @@
-Version 2   
+Version 3   
 
+1. Updated CartService.  
+  1.1. Added field cartProducts: CartProductModel[] - products that are currently in a cart.  
+  1.2. Added fields totalQuantity: number & totalSum: number. Moved logic of calculating sum and quantity to newly created method updateCartData.  
+  1.3. Changed addProductChannel to cartProductsChannel. Now it notifies subscribers if any change to a cart has happened.  
+  1.4. Created method updateCartData it calls newly created LocalStorageService to save cartProducts to a local storage, so that cart items are preserved after page reload. Then it fires event to notify subscribers that the cart was changed. And in the end it updates values of totalQuantity & totalSum.  
+  1.5. Modified method addProduct. Now it adds product to a cartProducts field or updates quantity (if product is already in the cart), then calls updateCartData.  
+  1.6. Added methods removeProduct, increaseQuantity, decreaseQuantity, removeAllProducts. Moved logic of appropriate operations from CartComponent to these methods. They all call updateCartData in the end.  
+2. Modified communication between cart and products.  
+  2.1. Moved all cart logic to CartService.  
+  2.2. Added observables to CartListComponent and ProductListComponent, to react to changes in CartService and update cartProducts and products accordingly.  
+  2.3. Set change detection strategy for CartItemComponent and ProductComponent to OnPush. Moved all communication with service to CartListComponent and ProductListComponent, so that CartItemComponent and ProductComponent have only inputs and outputs.  
+  2.4. Changed initialization logic for products to first get product from ProductService, then check cart if there are some items in a cart (they can be there at the beginning if they were stored in the local storage) and update product quantities accordingly.  
+3. Created LocalStorageService. It uses window.localStorage to work with local storage. It has methods: setItem(), getItem(), removeItem().  
+4. Created service ConfigOptionsService.  
+  4.1. Created model ConfigOptionsModel. Constructor has three optional parameters: id?: number, login?: string, password?: string.  
+  4.2. Added field configOptions: ConfigOptionsModel to ConfigOptionsModel.  
+  4.3. Added method to set this field and a method to get it.  
+5. Created service for constants. It contains an object with constants.  
+6. Created GeneratorService. It contains a function randomStringGeneratorFactory for creating random string generators of specified length.  
+7. Created component AboutComponent.  
+  7.1. It's constructor injects: LocalStorageService as class, ConfigOptionsService as optional, constants as value and also 2 random strings generators using factory (for 5 characters and 7 characters).  
+  7.2. It has ngOnInit method, that logs different operations with all injected services into a console.  
+8. Created directive ClickHighlightDirective.  
+  8.1. It's constructor injects ElementRef and Renderer2.  
+  8.2. It has a HostListener on click to change font-size, font-style and border of host, using ElementRef and Renderer2.  
+  8.3. This directive is added to a header in a template of the About component.  
+  
+Version 2   
+  
 1. Removed component First.  
 2. Modified AppComponent  
   2.1. Added h1 with template variable appHeader.  
