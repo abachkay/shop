@@ -10,3 +10,15 @@ import { SharedModule } from '../shared/shared.module';
   exports: [ProductListComponent]
 })
 export class ProductsModule { }
+
+/*
+Я бы структуру папки products сделал такой
+products
+  components
+    product
+    product-list
+  services
+    products.service.ts
+  models
+    product.model.ts
+*/
