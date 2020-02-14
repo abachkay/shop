@@ -12,6 +12,8 @@ import { CartProductModel } from './../../cart-item/models/cart-product.model';
 })
 export class CartListComponent implements OnInit, OnDestroy {
   cartProducts: CartProductModel[];
+  orderByField = 'product/name';
+  isDesc = true;
 
   private subsciption: Subscription;
 

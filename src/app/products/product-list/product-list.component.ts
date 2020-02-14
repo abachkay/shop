@@ -14,7 +14,7 @@ import { CartProductModel } from 'src/app/cart/cart-item/models/cart-product.mod
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit, OnDestroy {
-  products: ProductModel[];
+  products: Promise<ProductModel[]>;
 
   private subsciption: Subscription;
 
@@ -24,22 +24,25 @@ export class ProductListComponent implements OnInit, OnDestroy {
     private localStorageService: LocalStorageService) { }
 
   ngOnInit() {
-    this.products = this.productsService.getProducts();
-    const cartProducts = JSON.parse(this.localStorageService.getItem('cartProducts'));
+    this.products = this.productsService.getProducts().then(products => {
+      const cartProducts = JSON.parse(this.localStorageService.getItem('cartProducts'));
 
-    if (cartProducts) {
-      for (const cartProduct of cartProducts) {
-        const product = this.products.find(p => p.name === cartProduct.product.name);
+      if (cartProducts) {
+        for (const cartProduct of cartProducts) {
+          const product = products.find(p => p.name === cartProduct.product.name);
 
-        if (product) {
-          product.quantity -= cartProduct.quantity;
+          if (product) {
+            product.quantity -= cartProduct.quantity;
+          }
         }
       }
-    }
 
-    this.subsciption = this.cartService.cartProductsChannel$.subscribe(
-      data => this.cartUpdatedHandler(data)
-    );
+      this.subsciption = this.cartService.cartProductsChannel$.subscribe(
+        data => this.cartUpdatedHandler(data)
+      );
+
+      return products;
+    });
   }
 
   ngOnDestroy() {
@@ -51,12 +54,16 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   private cartUpdatedHandler(cartProducts: CartProductModel[]) {
-    for (const cartProduct of cartProducts) {
-      const product = this.products.find(p => p.name === cartProduct.product.name);
+    this.products = this.products.then(products => {
+      for (const cartProduct of cartProducts) {
+        const product = products.find(p => p.name === cartProduct.product.name);
 
-      product.quantity = cartProduct.product.quantity - cartProduct.quantity;
+        product.quantity = cartProduct.product.quantity - cartProduct.quantity;
 
-      this.products.splice(this.products.indexOf(product), 1, { ...product });
-    }
+        products.splice(products.indexOf(product), 1, { ...product });
+      }
+
+      return products;
+    });
   }
 }

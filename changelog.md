@@ -1,4 +1,21 @@
-Version 3   
+Version 4 (pipes)  
+  
+1. Applied default pipes to an application.   
+  1.1. Added 2 new fields to product model: dateModified: Date, category: string. They were initialized in ProductsService and displayed in a template.  
+  1.2. Applied currency pipe to price field in product template and totalPrice field in cart-list template.  
+  1.3. Applied date pipe to dateModified field in product template.  
+  1.4. Applied uppercase pipe to category field in product template.  
+  1.5. Redesigned ProductService and ProductComponent to work with a Promise of products.  
+  1.6. Appied async pipe to products promise in products template.  
+2. Created orderBy pipe.  
+  2.1. It takes 2 parameters path and isDesc.  
+  2.2. Parameter path shows by which fields collection should be ordered. If a field is nested, nodes should be divided by '/' (e.g. to order by item.field.nestedField, path should be specified as 'field/nestedField').  
+  2.3. Parameter isDesc controls the direction of sorting: if it is true then items are sorted descending, otherwise - ascending.  
+  2.4. Added dropdowns to cart-items template to select by which field and direction cart items should be ordered.  
+  2.5. Applied orderBy pipe to cart items in cart-items template, parameters were taken from dropdowns.  
+3. CommonModule, FormsModule were exported from SharedModule and removed from other modules. Pipe orderBy was also exported from SharedModule.   
+  
+Version 3 (services and DI)  
 
 1. Updated CartService.  
   1.1. Added field cartProducts: CartProductModel[] - products that are currently in a cart.  
@@ -27,7 +44,7 @@ Version 3
   8.2. It has a HostListener on click to change font-size, font-style and border of host, using ElementRef and Renderer2.  
   8.3. This directive is added to a header in a template of the About component.  
   
-Version 2   
+Version 2 (components)   
   
 1. Removed component First.  
 2. Modified AppComponent  
