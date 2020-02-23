@@ -11,6 +11,7 @@ export class RandomStringsGeneratorService {
   generateString() {
     let result = '';
 
+    // tslint:disable-next-line: prefer-for-of
     for (let i = 0; i < this.length; i++) {
       result += this.characters.charAt(Math.floor(Math.random() * this.characters.length));
     }
