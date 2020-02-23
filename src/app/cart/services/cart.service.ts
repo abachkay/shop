@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 
 import { Subject } from 'rxjs';
 
-import { ProductModel } from 'src/app/products/product/models/product.model';
-import { CartProductModel } from '../../cart-item/models/cart-product.model';
-import { LocalStorageService } from './../../../core/services/local-storage.service';
+import { ProductModel } from 'src/app/products/models/product.model';
+import { CartProductModel } from '../models/cart-product.model';
+import { LocalStorageService } from '../../core/services/local-storage.service';
 
 @Injectable({
   providedIn: 'root'

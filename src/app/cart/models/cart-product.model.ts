@@ -1,4 +1,4 @@
-import { ProductModel } from 'src/app/products/product/models/product.model';
+import { ProductModel } from 'src/app/products/models/product.model';
 
 export class CartProductModel {
   constructor(
