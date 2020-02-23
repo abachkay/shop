@@ -6,17 +6,21 @@ import { ProductsModule } from './products/products.module';
 import { CartModule } from './cart/cart.module';
 import { AboutComponent } from './layout/components/about/about.component';
 import { SharedModule } from './shared/shared.module';
+import { PathNotFoundComponent } from './layout/components/path-not-found/path-not-found.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AboutComponent
+    AboutComponent,
+    PathNotFoundComponent
   ],
   imports: [
     SharedModule,
     BrowserModule,
     ProductsModule,
-    CartModule
+    CartModule,
+    AppRoutingModule
   ],
   bootstrap: [AppComponent]
 })

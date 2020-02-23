@@ -1,4 +1,4 @@
-<ul [ngClass]="product.quantity > 10 ? 'product-green' : 'product-red'">
+<ul *ngIf="product" [ngClass]="product.quantity > 10 ? 'product-green' : 'product-red'">
   <li> Name: {{product.name}} </li>
   <li> Description: {{product.description}} </li>
   <li> Price: {{product.price | currency}} </li>
