@@ -9,20 +9,16 @@ import { AboutComponent } from './layout/components/about/about.component';
 import { SharedModule } from './shared/shared.module';
 import { PathNotFoundComponent } from './layout/components/path-not-found/path-not-found.component';
 import { AppRoutingModule } from './app-routing.module';
-import { AdminComponent } from './admin/components/admin/admin.component';
-import { AdminProductsComponent } from './admin/components/admin-products/admin-products.component';
-import { AdminOrdersComponent } from './admin/components/admin-orders/admin-orders.component';
-import { AdminProductFormComponent } from './admin/components/admin-product-form/admin-product-form.component';
+import { Router } from '@angular/router';
+import { LoginComponent } from './layout/components/login/login.component';
+import { AdminModule } from './admin/admin-module';
 
 @NgModule({
   declarations: [
     AppComponent,
     AboutComponent,
     PathNotFoundComponent,
-    AdminComponent,
-    AdminProductsComponent,
-    AdminOrdersComponent,
-    AdminProductFormComponent
+    LoginComponent
   ],
   imports: [
     SharedModule,
@@ -30,8 +26,16 @@ import { AdminProductFormComponent } from './admin/components/admin-product-form
     ProductsModule,
     CartModule,
     OrdersModule,
+    AdminModule,
     AppRoutingModule
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(router: Router) {
+    const replacer = (key: string, value: any): string =>
+      typeof value === 'function' ? value.name : value;
+
+    console.log('Routes: ', JSON.stringify(router.config, replacer, 2));
+  }
+}

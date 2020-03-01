@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+
+import { map, pluck } from 'rxjs/operators';
+
+import { ProductModel } from './../../../products/models/product.model';
+import { ProductsService } from './../../../products/services/products.service';
 
 @Component({
   selector: 'app-admin-product-form',
@@ -6,10 +12,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./admin-product-form.component.css']
 })
 export class AdminProductFormComponent implements OnInit {
+  product: ProductModel;
 
-  constructor() { }
+  constructor(
+    private productsService: ProductsService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit() {
+    this.activatedRoute.data.pipe(pluck('product')).subscribe((product: ProductModel) => {
+      this.product = { ...product };
+    });
   }
 
+  onSave() {
+    this.productsService.updateProduct(this.product);
+    this.router.navigateByUrl('/admin/products');
+  }
 }

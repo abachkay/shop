@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
+import { map } from 'rxjs/operators';
+
 import { LocalStorageService } from './../../core/services/local-storage.service';
 import { ProductsService } from './../services/products.service';
 import { ProductModel } from '../models/product.model';
@@ -24,17 +26,18 @@ export class ProductComponent implements OnInit {
   ngOnInit() {
     const productId: number = +this.route.snapshot.params.productID;
 
-    this.productsService.getProducts().then(products => {
-      const product = { ...products.find(x => x.id === productId) };
-      const cartProducts = JSON.parse(this.localStorageService.getItem('cartProducts'));
-      const cartProduct = cartProducts && cartProducts.find(x => x.product.id === productId);
+    this.productsService.getProducts().pipe(
+      map(products => {
+        const product = { ...products.find(x => x.id === productId) };
+        const cartProducts = JSON.parse(this.localStorageService.getItem('cartProducts'));
+        const cartProduct = cartProducts && cartProducts.find(x => x.product.id === productId);
 
-      if (cartProduct) {
-        product.quantity -= cartProduct.quantity;
-      }
+        if (cartProduct) {
+          product.quantity -= cartProduct.quantity;
+        }
 
-      this.product = product;
-    });
+        return product;
+      })).subscribe((product: ProductModel) => { this.product = product; });
   }
 
   onBuy() {

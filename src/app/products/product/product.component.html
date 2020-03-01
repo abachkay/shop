@@ -5,5 +5,6 @@
   <li> Quantity: {{product.quantity}} </li>
   <li> Date modified: {{product.dateModified | date:'short'}} </li>
   <li> Category: {{product.category | uppercase}} </li>
+  <br>
   <button (click)="onBuy()" [disabled]="!product.quantity"> Buy </button>
 </ul>

@@ -6,6 +6,7 @@ import { ProductListComponent } from './products/product-list/product-list.compo
 import { CartListComponent } from './cart/components/cart-list/cart-list.component';
 import { ProductComponent } from './products/product/product.component';
 import { OrderComponent } from './orders/components/order/order.component';
+import { LoginComponent } from './layout/components/login/login.component';
 
 const routes: Routes = [
   {
@@ -28,10 +29,10 @@ const routes: Routes = [
     path: 'order',
     component: OrderComponent
   },
-  // {
-  //   path: 'login',
-  //   component: LoginComponent
-  // },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
   {
     path: '',
     redirectTo: '/products-list',

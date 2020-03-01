@@ -1,1 +1,12 @@
-<p>admin-product-form works!</p>
+<form *ngIf="product" (ngSubmit)="onSave()">
+  <p>Product name:</p>
+  <input name="name" [(ngModel)]="product.name">
+  <p>Price:</p>
+  <input name="price" [(ngModel)]="product.price">
+  <p>Description:</p>
+  <input name="description" [(ngModel)]="product.description">
+  <p>Category:</p>
+  <input name="category" [(ngModel)]="product.category">
+  <br><br>
+  <button type="submit">Save</button>
+</form>

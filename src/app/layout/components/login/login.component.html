@@ -1,0 +1,18 @@
+<div *ngIf="isLoggedIn">
+  <p>You are logged in.</p>
+  <p *ngIf="isAdmin">You are admin</p>
+  <p *ngIf="!isAdmin">You are NOT admin</p>
+  <button (click)="onLogout()">Logout</button>
+</div>
+
+<div *ngIf="!isLoggedIn">
+  <p> You are NOT logged in. </p>
+  <form (ngSubmit)="onLogin()">
+    <p>Username:</p>
+    <input name="username" type="text" [(ngModel)]="username">
+    <p>Password:</p>
+    <input name="password" type="text" [(ngModel)]="password">
+    <br><br>
+    <button type="submit">Login</button>
+  </form>
+</div>
