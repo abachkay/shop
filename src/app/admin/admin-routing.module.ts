@@ -9,8 +9,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminProductFormComponent } from './components/admin-product-form/admin-product-form.component';
 
 const routes: Routes = [{
-  path: 'admin',
-  canActivate: [AdminGuard],
+  path: '',
   component: AdminComponent,
   children: [
     { path: '', redirectTo: '/admin/products', pathMatch: 'full' },

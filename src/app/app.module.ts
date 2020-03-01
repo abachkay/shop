@@ -11,7 +11,7 @@ import { PathNotFoundComponent } from './layout/components/path-not-found/path-n
 import { AppRoutingModule } from './app-routing.module';
 import { Router } from '@angular/router';
 import { LoginComponent } from './layout/components/login/login.component';
-import { AdminModule } from './admin/admin-module';
+import { AdminModule } from './admin/admin.module';
 
 @NgModule({
   declarations: [
@@ -26,7 +26,6 @@ import { AdminModule } from './admin/admin-module';
     ProductsModule,
     CartModule,
     OrdersModule,
-    AdminModule,
     AppRoutingModule
   ],
   bootstrap: [AppComponent]
