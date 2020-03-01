@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -8,8 +9,8 @@ import { OrderByPipe } from './pipes/order-by.pipe';
 @NgModule({
   declarations: [HighlightDirective, ClickHighlightDirective, OrderByPipe],
   imports: [
-    CommonModule
+    CommonModule, RouterModule
   ],
-  exports: [HighlightDirective, ClickHighlightDirective, OrderByPipe, CommonModule, FormsModule]
+  exports: [HighlightDirective, ClickHighlightDirective, OrderByPipe, CommonModule, FormsModule, RouterModule]
 })
 export class SharedModule { }

@@ -3,6 +3,6 @@
 </h4>
 <ul>
   <li *ngFor="let product of products | async">
-    <a href="javascript: void(0);" (click)="onSelectProduct(product.id)"> {{product.name}} </a>
+    <a [routerLink]="['/product', product.id]"> {{product.name}} </a>
   </li>
 </ul>

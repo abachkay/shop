@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 
-import { Subject } from 'rxjs';
-
 import { ProductModel } from 'src/app/products/models/product.model';
 import { CartProductModel } from '../models/cart-product.model';
 import { LocalStorageService } from '../../core/services/local-storage.service';
@@ -13,10 +11,6 @@ export class CartService {
   cartProducts: CartProductModel[];
   totalQuantity: number;
   totalSum: number;
-
-  private cartProductsChannel = new Subject<CartProductModel[]>();
-
-  cartProductsChannel$ = this.cartProductsChannel.asObservable();
 
   constructor(private localStorageService: LocalStorageService) {
     this.cartProducts = JSON.parse(localStorageService.getItem('cartProducts')) || [];
@@ -38,7 +32,7 @@ export class CartService {
   removeProduct(name: string) {
     const cartProduct = this.getCartProductByName(name);
 
-    cartProduct.quantity = 0;
+    this.cartProducts.splice(this.cartProducts.indexOf(cartProduct), 1);
     this.updateCartData();
   }
 
@@ -62,16 +56,12 @@ export class CartService {
   }
 
   removeAllProducts() {
-    for (const cartProdcut of this.cartProducts) {
-      cartProdcut.quantity = 0;
-    }
-
+    this.cartProducts = [];
     this.updateCartData();
   }
 
   private updateCartData() {
     this.localStorageService.setItem('cartProducts', JSON.stringify(this.cartProducts));
-    this.cartProductsChannel.next(this.cartProducts);
 
     this.totalQuantity = this.cartProducts.reduce((accumulator, current) => accumulator + current.quantity, 0);
     this.totalSum = this.cartProducts.reduce((accumulator, current) => accumulator + current.product.price * current.quantity, 0);

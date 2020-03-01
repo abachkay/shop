@@ -21,5 +21,6 @@
     (cartProductQuantityIncreased)="onCartProductQuantityIncreased($event)"
     (cartProductQuantityDecreased)="onCartProductQuantityDecreased($event)">
   </app-cart-item>
+  <button (click)="onGoToOrder()"> Create order </button>
 </div>
 <ng-template #emptyCart>Cart is empty</ng-template>

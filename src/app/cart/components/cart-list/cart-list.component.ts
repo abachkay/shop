@@ -1,21 +1,17 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { Subscription } from 'rxjs';
-
 import { CartService } from 'src/app/cart/services/cart.service';
 import { CartProductModel } from '../../models/cart-product.model';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-cart-list',
   templateUrl: './cart-list.component.html',
   styleUrls: ['./cart-list.component.css']
 })
-export class CartListComponent implements OnInit, OnDestroy {
+export class CartListComponent implements OnInit {
   cartProducts: CartProductModel[];
   orderByField = 'product/name';
   isDesc = true;
-
-  private subsciption: Subscription;
 
   get totalQuantity(): number {
     return this.cartService.totalQuantity;
@@ -25,18 +21,12 @@ export class CartListComponent implements OnInit, OnDestroy {
     return this.cartService.totalSum;
   }
 
-  constructor(private cartService: CartService) { }
+  constructor(
+    private cartService: CartService,
+    private router: Router) { }
 
   ngOnInit() {
-    this.cartProducts = this.cartService.cartProducts.filter(cartProduct => cartProduct.quantity);
-
-    this.subsciption = this.cartService.cartProductsChannel$.subscribe(cartProducts =>
-      this.cartProducts = cartProducts.filter(cartProduct => cartProduct.quantity).map(cartProduct => ({ ...cartProduct }))
-    );
-  }
-
-  ngOnDestroy() {
-    this.subsciption.unsubscribe();
+    this.cartProducts = this.cartService.cartProducts;
   }
 
   onCartProductQuantityIncreased(cartProduct: CartProductModel) {
@@ -49,5 +39,9 @@ export class CartListComponent implements OnInit, OnDestroy {
 
   onCartProductRemoved(cartProduct: CartProductModel) {
     this.cartService.removeProduct(cartProduct.product.name);
+  }
+
+  onGoToOrder() {
+    this.router.navigateByUrl('/order');
   }
 }
