@@ -1,3 +1,35 @@
+Version 5 (routing)   
+  
+1. Configured routing for an application.  
+  1.1. Routing configured in 2 modules: AdminRoutingModule and AppRoutingModule. First contains routes for admin management, second - all other routes.  
+  2.2. AdminRoutingModule contains routes: "admin" - redirects to "admin/products", "admin/products" - lists products for admin, "admin/product/add" - form to create new product, "admin/product/edit/:productID" - same form but for editing, "admin/orders" - for orders (currently is empty and does not have any logic).  
+  2.3. AppRoutingModule contains routes: "/product-list" - lists products for user, "/product/:productID" - view of single product with all details, "/about" - content of AboutComponent from previous tasks, "/cart" - cart items, "/order" - creating order, "/login" - form for logging in, "admin" - admin management (has canActivate, canLoad guards, which use UserService to check if user is admin, has lazy loading of children from AdminRoutingModule), '' - redirects to "/product-list", any other route leads to PathNotFound component.  
+2. Created UserService.  
+  2.1. It has methods login and logout, first one sets isLoggedIn parameter to true and checks if user is admin, if he is, sets also isAdmin to true (currentrly there is no backend so username and password for admin are hardcoded - username: "admin", password: "admin").  
+  2.2. It uses LocalStorageService to save isLoggedIn and isAdmin parameters to localstorage, so that they are preserved after reloading page.   
+3. Created LoginComponent.  
+  3.1. Added form to a template, it contains fields for username and password. Added buttons to login and logout. Added ngIf directives to a template to display status of user (if user is logged in and if he is admin).  
+  3.2. Added methods to a component for logging in and logging out, they call respective methods of UserService.  
+4. Update products and cart logic.  
+  4.1. They are now separated by different routes.  
+  4.2. ProductListComponent now does not include products in a template, but references with routerLink to products.  
+  4.3. Updated ProductModel: added id field to identify product (it is included into the route).  
+5. Updated AppComponent: it now contains navigation bar to access different features of applicaiton.  
+6. Added OrderComponent.  
+  6.1. User navigates to it from CartComponent by clicking button "Create Order" (it uses router.navigateByUrl method).  
+  6.2. It has method confirmOrder() which removes products from cart and navigates to "/product-list".  
+  6.3. It has a dropdown for payment method in a template (no logic, just to fill a page)
+  6.3. It has a button to call the confirm method and also the information about total sum of order.  
+7. Added PathNotFoundComponent to redirect here if path is not valid.  
+8. Added Admin management.  
+  8.1. Created separate AdminModule, which is lazily loaded in AppRoutingModule.  
+  8.2. Added AdminComponent: it contains just sub-navigation for admin management (routerLink directives were used in a template).  
+  8.3. Added AdminProductsComponent: it uses ProductsService to get products and display them in a template (only names and references to AdminProductFormComponent via routerLink), also has an add button for adding new product, which navigates to the same AdminProductFormComponent form, but uses a different route.  
+  8.3. Added AdminProductFormComponent: it has a form with fields for ProductModel properties and a Save button, which calls newly created upsertProduct method of ProductService. This method creates or updates product, depending on the provided ProductModel (if id was set, then update, if id is null, then create), it also updates LastUpdatedDate field and generates new id (in case of adding new product).  
+  8.4. Added AdminProductFormResolveGuard it uses ActivatedRouteSnapshot to check if productID was provided in the route and pulls product from ProductService with newly created method getProductById, otherwise returns empty ProductModel.  
+  8.5. Created AdminOrdersComponent: it is currently empty and has no logic, there is just reference to it from navigation bar in AdminComponent.    
+  8.6. Added AdminGuard that uses UserService to check isAdmin field and determine if user is admin or not. It has canActivate and canLoad methods. It is used in AppRoutingModule for "admin" route.  
+
 Version 4 (pipes)  
   
 1. Applied default pipes to an application.   
