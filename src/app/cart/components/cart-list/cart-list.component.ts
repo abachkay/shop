@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { CartService } from 'src/app/cart/services/cart.service';
 import { CartProductModel } from '../../models/cart-product.model';
-import { Router } from '@angular/router';
 
 @Component({
   templateUrl: './cart-list.component.html',

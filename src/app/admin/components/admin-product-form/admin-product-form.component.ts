@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { map, pluck } from 'rxjs/operators';
+import { pluck } from 'rxjs/operators';
 
 import { ProductModel } from './../../../products/models/product.model';
 import { ProductsService } from './../../../products/services/products.service';

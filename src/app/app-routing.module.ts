@@ -1,6 +1,7 @@
-import { AdminGuard } from './core/guards/admin.guard';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+
+import { AdminGuard } from './core/guards/admin.guard';
 import { PathNotFoundComponent } from './layout/components/path-not-found/path-not-found.component';
 import { AboutComponent } from './layout/components/about/about.component';
 import { ProductListComponent } from './products/product-list/product-list.component';

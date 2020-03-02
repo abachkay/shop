@@ -1,5 +1,3 @@
-import { AdminGuard } from './../core/guards/admin.guard';
-import { AdminProductFormResolveGuard } from './components/admin/guards/admin-product-form-resolve.guard';
 import { NgModule } from '@angular/core';
 
 import { AdminOrdersComponent } from './components/admin-orders/admin-orders.component';
@@ -7,6 +5,7 @@ import { AdminProductsComponent } from './components/admin-products/admin-produc
 import { AdminComponent } from './components/admin/admin.component';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminProductFormComponent } from './components/admin-product-form/admin-product-form.component';
+import { AdminProductFormResolveGuard } from './components/admin/guards/admin-product-form-resolve.guard';
 
 const routes: Routes = [{
   path: '',

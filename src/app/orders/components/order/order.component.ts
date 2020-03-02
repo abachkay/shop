@@ -1,6 +1,7 @@
-import { CartService } from 'src/app/cart/services/cart.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
+import { CartService } from 'src/app/cart/services/cart.service';
 
 @Component({
   templateUrl: './order.component.html',
