@@ -1,0 +1,10 @@
+<ul *ngIf="product" [ngClass]="product.quantity > 10 ? 'product-green' : 'product-red'">
+  <li> Name: {{product.name}} </li>
+  <li> Description: {{product.description}} </li>
+  <li> Price: {{product.price | currency}} </li>
+  <li> Quantity: {{product.quantity}} </li>
+  <li> Date modified: {{product.dateModified | date:'short'}} </li>
+  <li> Category: {{product.category | uppercase}} </li>
+  <br>
+  <button (click)="onBuy()" [disabled]="!product.quantity"> Buy </button>
+</ul>

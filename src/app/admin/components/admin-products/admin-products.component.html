@@ -1,0 +1,9 @@
+<h4>
+  Products:
+</h4>
+<button routerLink="/admin/product/add">Add</button>
+<ul>
+  <li *ngFor="let product of products | async">
+    <a [routerLink]="['/admin/product/edit', product.id]"> {{product.name}} </a>
+  </li>
+</ul>

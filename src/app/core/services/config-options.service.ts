@@ -9,10 +9,7 @@ export class ConfigOptionsService {
   private configOptions: ConfigOptionsModel;
 
   setConfigOptions(configOptions: ConfigOptionsModel): void {
-    // тут желательно не устанавливать ссылку на объект,
-    // а делат копирование указанных свойств.
-    // не всегда удобно полностью заменять объект.
-    this.configOptions = configOptions;
+    this.configOptions = { ...configOptions };
   }
 
   getConfigOptions(): ConfigOptionsModel {

@@ -1,0 +1,14 @@
+<form *ngIf="product" (ngSubmit)="onSave()">
+  <p>Product name:</p>
+  <input name="name" [(ngModel)]="product.name">
+  <p>Description:</p>
+  <input name="description" [(ngModel)]="product.description">
+  <p>Price:</p>
+  <input name="price" [(ngModel)]="product.price">
+  <p>Quantity:</p>
+  <input name="quantity" [(ngModel)]="product.quantity">
+  <p>Category:</p>
+  <input name="category" [(ngModel)]="product.category">
+  <br><br>
+  <button type="submit">Save</button>
+</form>

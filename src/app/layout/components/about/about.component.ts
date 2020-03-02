@@ -3,8 +3,9 @@ import { Component, OnInit, InjectionToken, Inject, Optional } from '@angular/co
 import { ConfigOptionsService } from './../../../core/services/config-options.service';
 import { constants } from './../../../core/services/constant.service';
 import { LocalStorageService } from './../../../core/services/local-storage.service';
-import { randomStringGeneratorFactory } from 'src/app/core/services/generator.service';
 import { ConfigOptionsModel } from 'src/app/core/models/config-options.model';
+import { RandomStringsGeneratorService } from 'src/app/core/services/random-strings-generator.service';
+import { randomStringGeneratorFactory } from 'src/app/core/services/random-strings-generator-factory';
 
 const Constants = new InjectionToken<any[]>('Constants');
 const Rsg5 = new InjectionToken<any[]>('Rsg5');
@@ -17,19 +18,17 @@ const Rsg7 = new InjectionToken<any[]>('Rsg7');
   providers: [
     { provide: LocalStorageService, useClass: LocalStorageService },
     { provide: Constants, useValue: constants },
-    { provide: Rsg5, useFactory: randomStringGeneratorFactory(5) },
-    { provide: Rsg7, useFactory: randomStringGeneratorFactory(7) },
+    { provide: RandomStringsGeneratorService, useFactory: randomStringGeneratorFactory(5) }
   ]
 })
 export class AboutComponent implements OnInit {
 
 
   constructor(
+    private rsg5: RandomStringsGeneratorService,
     private localStorageService: LocalStorageService,
     @Optional() private configOptionsService: ConfigOptionsService,
-    @Inject(Constants) private constantsObject: any,
-    @Inject(Rsg5) private rsg5: any,
-    @Inject(Rsg7) private rsg7: any,
+    @Inject(Constants) private constantsObject: any
   ) { }
 
   ngOnInit() {
@@ -51,7 +50,6 @@ export class AboutComponent implements OnInit {
 
     console.log(`Constants: ${JSON.stringify(this.constantsObject)}`);
 
-    console.log(`Randomly generated string of 5 characters: ${JSON.stringify(this.rsg5)}`);
-    console.log(`Randomly generated string of 7 characters: ${JSON.stringify(this.rsg7)}`);
+    console.log(`Randomly generated string of 5 characters: ${JSON.stringify(this.rsg5.generateString())}`);
   }
 }
