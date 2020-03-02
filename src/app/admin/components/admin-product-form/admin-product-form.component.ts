@@ -26,7 +26,7 @@ export class AdminProductFormComponent implements OnInit {
   }
 
   onSave() {
-    this.productsService.updateProduct(this.product);
+    this.productsService.upsertProduct(this.product);
     this.router.navigateByUrl('/admin/products');
   }
 }

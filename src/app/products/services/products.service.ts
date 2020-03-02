@@ -33,12 +33,20 @@ export class ProductsService {
     );
   }
 
-  updateProduct(product: ProductModel) {
+  upsertProduct(product: ProductModel) {
     this.products = this.products.pipe(
       map(products => {
         const existingProduct = products.find(x => x.id === product.id);
 
-        products.splice(products.indexOf(existingProduct), 1, { ...product });
+        product.dateModified = new Date(Date.now());
+
+        if (existingProduct) {
+          products.splice(products.indexOf(existingProduct), 1, { ...product });
+        } else {
+          product.id = products.reduce((acc, current) => current.id > acc.id ? current : acc).id + 1;
+          product.quantity = 1;
+          products.push({ ...product });
+        }
 
         return products;
       }));
