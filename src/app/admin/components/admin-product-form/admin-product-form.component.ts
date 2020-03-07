@@ -13,6 +13,7 @@ import { ProductsService } from './../../../products/services/products.service';
 })
 export class AdminProductFormComponent implements OnInit {
   product: ProductModel;
+  isEdit = true;
 
   constructor(
     private productsService: ProductsService,
@@ -22,11 +23,17 @@ export class AdminProductFormComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.data.pipe(pluck('product')).subscribe((product: ProductModel) => {
       this.product = { ...product };
+      this.isEdit = this.activatedRoute.snapshot.url.length === 3;
     });
   }
 
   onSave() {
-    this.productsService.upsertProduct(this.product);
-    this.router.navigateByUrl('/admin/products');
+    this.productsService.upsertProduct(this.product).subscribe(_ =>
+      this.router.navigateByUrl('/admin/products'));
+  }
+
+  onDelete() {
+    this.productsService.deleteProduct(this.product.id).subscribe(_ =>
+      this.router.navigateByUrl('/admin/products'));
   }
 }

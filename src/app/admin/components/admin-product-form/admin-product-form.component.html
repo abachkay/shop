@@ -11,4 +11,5 @@
   <input name="category" [(ngModel)]="product.category">
   <br><br>
   <button type="submit">Save</button>
+  <button *ngIf="isEdit" type="button" (click)="onDelete()">Delete</button>
 </form>

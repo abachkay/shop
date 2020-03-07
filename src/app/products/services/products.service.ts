@@ -1,7 +1,7 @@
+import { HttpService } from './../../shared/services/http.service';
 import { Injectable } from '@angular/core';
 
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 import { ProductModel } from '../models/product.model';
 
@@ -9,46 +9,30 @@ import { ProductModel } from '../models/product.model';
   providedIn: 'root'
 })
 export class ProductsService {
-  private products: Observable<ProductModel[]>;
-
-  constructor() {
-    this.products = of([
-      new ProductModel(1, 'Product1', 'Description2', 35.4325, 5, new Date(2020, 1, 1), 'Category1'),
-      new ProductModel(2, 'Product2', 'Description3', 32.42, 12, new Date(2020, 1, 5), 'Category2'),
-      new ProductModel(3, 'Product3', 'Description4', 65, 245, new Date(2020, 1, 9), 'Category1'),
-    ]);
-  }
+  constructor(
+    private httpService: HttpService) { }
 
   getProducts(): Observable<ProductModel[]> {
-    return this.products;
+    return this.httpService.get(productsUrl);
   }
 
   getProductById(id: number): Observable<ProductModel> {
-    return this.products.pipe(
-      map(products => {
-        const product = products.find(x => x.id === id);
-
-        return { ...product };
-      })
-    );
+    return this.httpService.getById(productsUrl, id);
   }
 
   upsertProduct(product: ProductModel) {
-    this.products = this.products.pipe(
-      map(products => {
-        const existingProduct = products.find(x => x.id === product.id);
+    if (product.id) {
+      return this.httpService.put(productsUrl, product.id, product);
+    }
 
-        product.dateModified = new Date(Date.now());
+    product.id = Math.trunc((Math.random() * 1000000));
 
-        if (existingProduct) {
-          products.splice(products.indexOf(existingProduct), 1, { ...product });
-        } else {
-          product.id = products.reduce((acc, current) => current.id > acc.id ? current : acc).id + 1;
-          product.quantity = 1;
-          products.push({ ...product });
-        }
+    return this.httpService.post(productsUrl, product);
+  }
 
-        return products;
-      }));
+  deleteProduct(productId: number) {
+    return this.httpService.delete(productsUrl, productId);
   }
 }
+
+const productsUrl = 'products';

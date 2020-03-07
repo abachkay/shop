@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+import { HttpService } from './../../shared/services/http.service';
 import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
@@ -10,23 +11,28 @@ export class UserService {
   isAdmin: boolean;
 
   constructor(
-    private localStorageService: LocalStorageService) {
+    private localStorageService: LocalStorageService,
+    private httpService: HttpService) {
     this.isLoggedIn = this.localStorageService.getItem('isLoggedIn') === 'true';
     this.isAdmin = this.localStorageService.getItem('isAdmin') === 'true';
   }
 
-  login(username: string, password: string): void {
-    this.isLoggedIn = true;
+  login(username: string, password: string): Promise<any> {
+    return this.httpService.get('users').toPromise()
+      .then(result => {
+        const user = (result as any[]).find(x => x.username === username && x.password === password);
 
-    // TODO: delete this hardcode after connecting to a backend.
-    if (username === 'admin' && password === 'admin') {
-      this.isAdmin = true;
-    } else {
-      this.isAdmin = false;
-    }
+        if (user) {
+          this.isLoggedIn = true;
+          this.isAdmin = user.isAdmin;
+        } else {
+          this.isLoggedIn = this.isAdmin = false;
+          alert('Invalid username or password');
+        }
 
-    this.localStorageService.setItem('isLoggedIn', this.isLoggedIn);
-    this.localStorageService.setItem('isAdmin', this.isAdmin);
+        this.localStorageService.setItem('isLoggedIn', this.isLoggedIn);
+        this.localStorageService.setItem('isAdmin', this.isAdmin);
+      });
   }
 
   logout(): void {

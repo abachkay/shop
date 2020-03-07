@@ -1,0 +1,51 @@
+{
+  "users": [
+    {
+      "username": "admin",
+      "password": "admin",
+      "isAdmin": "true"
+    },
+    {
+      "username": "user1",
+      "password": "password",
+      "isAdmin": "false"
+    }
+  ],
+  "products": [
+    {
+      "id": "1",
+      "name": "Product1",
+      "description": "Description223",
+      "price": "35.4325",
+      "quantity": "5",
+      "dateModified": "2020-01-01",
+      "category": "Category1"
+    },
+    {
+      "id": "2",
+      "name": "Product2",
+      "description": "Description3",
+      "price": "35.4325",
+      "quantity": "5",
+      "dateModified": "2020-01-01",
+      "category": "Category2"
+    },
+    {
+      "id": "3",
+      "name": "Product3",
+      "description": "Description4",
+      "price": "65",
+      "quantity": "245",
+      "dateModified": "2020-01-09",
+      "category": "Category1"
+    },
+    {
+      "name": "214",
+      "description": "42",
+      "price": "53",
+      "quantity": "5",
+      "category": "533",
+      "id": 34754
+    }
+  ]
+}
