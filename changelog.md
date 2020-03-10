@@ -6,11 +6,13 @@ Version 6 (http)
   1.3. Used promise approach for user login logic.  
   1.4. Used observable approach for products logic.  
   1.5. Added delete functionality for products (in admin management).  
+  1.6. Fixed issue with dateModified being null for new products and not updating after edit.  
 2. Implemented TimingInterceptor, which measures the duration of products-related requests (but not for users) and outputs it to a console.  
 3. Implemeted AppSettingsService.  
   1.1. Added AppSettingsModel - has one numeric field: version, it defaults to 0.  
   1.2. Added app-settings.json file to assets folder.  
   1.3. In AppSettingsService implemented method getAppSettings() which tries to get settings from localStorageService. If they are absent, tries to get them from app-settings.json (makes two tries to get them). If success, then writes them to local storage and returns them, otherwise returns default AppSettingsModel.    
+  1.4. Used AppSettingsService to output version to a console in AboutComponent.  
 
 Version 5 (routing)   
   
