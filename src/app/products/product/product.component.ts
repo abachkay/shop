@@ -29,7 +29,7 @@ export class ProductComponent implements OnInit {
     this.productsService.getProductById(productId).pipe(
       map(product => {
         const cartProducts = JSON.parse(this.localStorageService.getItem('cartProducts'));
-        const cartProduct = cartProducts && cartProducts.find(x => x.product.id === productId);
+        const cartProduct = cartProducts && cartProducts.find(x => +x.product.id === productId);
 
         if (cartProduct) {
           product.quantity -= cartProduct.quantity;
