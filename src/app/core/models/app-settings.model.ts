@@ -1,4 +1,4 @@
 export class AppSettingsModel {
   constructor(
-    public version: number = 1) { }
+    public version: number = 0) { }
 }

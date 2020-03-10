@@ -10,11 +10,13 @@ export class TimingInterceptor implements HttpInterceptor {
     const start = Date.now();
 
     return next.handle(req).pipe(
-      filter((event: HttpEvent<any>) => event.type === HttpEventType.Response && event.url.includes('products')),
+      filter((event: HttpEvent<any>) => event.type === HttpEventType.Response),
       map((event: HttpResponse<any>) => {
-        const end = Date.now();
+        if (event.url.includes('products')) {
+          const end = Date.now();
 
-        console.log(`Request to ${event.url}, finished in ${(end - start) / 1000} seconds`);
+          console.log(`Request to ${event.url}, finished in ${(end - start) / 1000} seconds`);
+        }
 
         return event;
       })

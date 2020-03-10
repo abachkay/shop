@@ -1,8 +1,11 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
+import { Observable, of } from 'rxjs';
+import { retry, map, catchError } from 'rxjs/operators';
 
 import { AppSettingsModel } from './../models/app-settings.model';
 import { LocalStorageService } from './local-storage.service';
-import AppSettings from '../../../assets/app-settings.json';
 
 @Injectable({
   providedIn: 'root'
@@ -10,16 +13,27 @@ import AppSettings from '../../../assets/app-settings.json';
 export class AppSettingsService {
 
   constructor(
-    private localStorageService: LocalStorageService) { }
+    private localStorageService: LocalStorageService,
+    private httpClient: HttpClient) { }
 
-  public getAppSettings(): AppSettingsModel {
+  public getAppSettings(): Observable<AppSettingsModel> {
     const localAppSettings = this.localStorageService.getItem('appSettings');
 
     if (localAppSettings) {
-      return JSON.parse(localAppSettings);
+      return of(JSON.parse(localAppSettings));
     }
 
-    const appSettings = AppSettings as unknown as AppSettingsModel;
+    return this.httpClient.get('../../../assets/app-settings.json').pipe(
+      retry(2),
+      map(response => this.handleAppSettingsResponse(response)),
+      catchError(_ => {
+        return of(new AppSettingsModel());
+      })
+    );
+  }
+
+  private handleAppSettingsResponse(response) {
+    const appSettings = response as AppSettingsModel;
 
     this.localStorageService.setItem('appSettings', JSON.stringify(appSettings));
 

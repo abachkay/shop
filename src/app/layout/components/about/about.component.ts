@@ -1,4 +1,4 @@
-import { Component, OnInit, InjectionToken, Inject, Optional } from '@angular/core'
+import { Component, OnInit, InjectionToken, Inject, Optional } from '@angular/core';
 
 import { AppSettingsService } from './../../../core/services/app-settings.service';
 import { ConfigOptionsService } from './../../../core/services/config-options.service';
@@ -29,8 +29,6 @@ export class AboutComponent implements OnInit {
     private appSettingsService: AppSettingsService
   ) { }
 
-  public test = this.appSettingsService.getAppSettings();
-
   ngOnInit() {
     const configOptions = new ConfigOptionsModel(1, 'login');
     this.configOptionsService.setConfigOptions(configOptions);
@@ -52,6 +50,6 @@ export class AboutComponent implements OnInit {
 
     console.log(`Randomly generated string of 5 characters: ${JSON.stringify(this.rsg5.generateString())}`);
 
-    console.log(`App Version: ${this.appSettingsService.getAppSettings().version}`);
+    this.appSettingsService.getAppSettings().subscribe(appSettings => console.log(`App Version: ${appSettings.version}`));
   }
 }
