@@ -1,3 +1,17 @@
+Version 6 (http)     
+  
+1. Added json server and implemented backend for existing functionality.  
+  1.1. Created db.json, which contains products and users (added 2 users to db: with admin permissions - username=admin, password=admin, and regular user without admin permissions - username=user1, password=password).  
+  1.2. Created HttpService, with methods get(), getById(), put(), post() and delete(), which handle respective requests.   
+  1.3. Used promise approach for user login logic.  
+  1.4. Used observable approach for products logic.  
+  1.5. Added delete functionality for products (in admin management).  
+2. Implemented TimingInterceptor, which measures the duration of products-related requests (but not for users) and outputs it to a console.  
+3. Implemeted AppSettingsService.  
+  1.1. Added AppSettingsModel - has one numeric field: version, it defaults to 0.  
+  1.2. Added app-settings.json file to assets folder.  
+  1.3. In AppSettingsService implemented method getAppSettings() which tries to get settings from localStorageService. If they are absent, tries to get them from app-settings.json (makes two tries to get them). If success, then writes them to local storage and returns them, otherwise returns default AppSettingsModel.    
+
 Version 5 (routing)   
   
 1. Configured routing for an application.  
