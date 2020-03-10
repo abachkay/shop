@@ -1,8 +1,8 @@
 Version 6 (http)     
   
 1. Added json server and implemented backend for existing functionality.  
-  1.1. Created db.json, which contains products and users.  
-  1.2. Created HttpService, with methods get(), getById(), put(), post() and delete(), which handle respective requests.  
+  1.1. Created db.json, which contains products and users (added 2 users to db: with admin permissions - username=admin, password=admin, and regular user without admin permissions - username=user1, password=password).  
+  1.2. Created HttpService, with methods get(), getById(), put(), post() and delete(), which handle respective requests.   
   1.3. Used promise approach for user login logic.  
   1.4. Used observable approach for products logic.  
   1.5. Added delete functionality for products (in admin management).  
