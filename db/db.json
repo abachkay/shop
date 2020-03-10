@@ -15,10 +15,10 @@
     {
       "id": "1",
       "name": "Product1",
-      "description": "Description223",
+      "description": "Description2",
       "price": "35.4325",
       "quantity": "5",
-      "dateModified": "2020-01-01",
+      "dateModified": "2020-03-10T23:10:56.235Z",
       "category": "Category1"
     },
     {
@@ -38,14 +38,6 @@
       "quantity": "245",
       "dateModified": "2020-01-09",
       "category": "Category1"
-    },
-    {
-      "name": "214",
-      "description": "42",
-      "price": "53",
-      "quantity": "5",
-      "category": "533",
-      "id": 34754
     }
   ]
 }

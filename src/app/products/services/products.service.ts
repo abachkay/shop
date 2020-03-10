@@ -21,6 +21,8 @@ export class ProductsService {
   }
 
   upsertProduct(product: ProductModel) {
+    product.dateModified = new Date(Date.now());
+
     if (product.id) {
       return this.httpService.put(productsUrl, product.id, product);
     }
