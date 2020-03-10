@@ -1,5 +1,6 @@
-import { Component, OnInit, InjectionToken, Inject, Optional } from '@angular/core';
+import { Component, OnInit, InjectionToken, Inject, Optional } from '@angular/core'
 
+import { AppSettingsService } from './../../../core/services/app-settings.service';
 import { ConfigOptionsService } from './../../../core/services/config-options.service';
 import { constants } from './../../../core/services/constant.service';
 import { LocalStorageService } from './../../../core/services/local-storage.service';
@@ -8,8 +9,6 @@ import { RandomStringsGeneratorService } from 'src/app/core/services/random-stri
 import { randomStringGeneratorFactory } from 'src/app/core/services/random-strings-generator-factory';
 
 const Constants = new InjectionToken<any[]>('Constants');
-const Rsg5 = new InjectionToken<any[]>('Rsg5');
-const Rsg7 = new InjectionToken<any[]>('Rsg7');
 
 @Component({
   selector: 'app-about',
@@ -22,14 +21,15 @@ const Rsg7 = new InjectionToken<any[]>('Rsg7');
   ]
 })
 export class AboutComponent implements OnInit {
-
-
   constructor(
     private rsg5: RandomStringsGeneratorService,
     private localStorageService: LocalStorageService,
     @Optional() private configOptionsService: ConfigOptionsService,
-    @Inject(Constants) private constantsObject: any
+    @Inject(Constants) private constantsObject: any,
+    private appSettingsService: AppSettingsService
   ) { }
+
+  public test = this.appSettingsService.getAppSettings();
 
   ngOnInit() {
     const configOptions = new ConfigOptionsModel(1, 'login');
@@ -51,5 +51,7 @@ export class AboutComponent implements OnInit {
     console.log(`Constants: ${JSON.stringify(this.constantsObject)}`);
 
     console.log(`Randomly generated string of 5 characters: ${JSON.stringify(this.rsg5.generateString())}`);
+
+    console.log(`App Version: ${this.appSettingsService.getAppSettings().version}`);
   }
 }
