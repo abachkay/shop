@@ -26,9 +26,8 @@ export class ProductComponent implements OnInit {
   ngOnInit() {
     const productId: number = +this.route.snapshot.params.productID;
 
-    this.productsService.getProducts().pipe(
-      map(products => {
-        const product = { ...products.find(x => x.id === productId) };
+    this.productsService.getProductById(productId).pipe(
+      map(product => {
         const cartProducts = JSON.parse(this.localStorageService.getItem('cartProducts'));
         const cartProduct = cartProducts && cartProducts.find(x => x.product.id === productId);
 

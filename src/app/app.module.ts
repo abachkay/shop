@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { Router } from '@angular/router';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { OrdersModule } from './orders/orders.module';
 import { AppComponent } from './app.component';
@@ -11,6 +12,7 @@ import { SharedModule } from './shared/shared.module';
 import { PathNotFoundComponent } from './layout/components/path-not-found/path-not-found.component';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './layout/components/login/login.component';
+import { TimingInterceptor } from './core/interceptors/timing-interceptor';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,13 @@ import { LoginComponent } from './layout/components/login/login.component';
     CartModule,
     OrdersModule,
     AppRoutingModule
+  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TimingInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
