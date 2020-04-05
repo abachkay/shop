@@ -1,3 +1,17 @@
+Version 7 (NgRx)  
+1. Applied @ngrx/store, @ngrx/effects for Products.  
+  1.1. Created state, actions, reducers, selectors, effects.  
+  1.2. Applied @ngrx/entity: used default selectors, CRUD operations for managing entity collections.    
+  1.3. Implemented facade pattern.  
+  1.4. Substituted every usage of ProductsService with ProductsFacade.  
+  1.5. Implemented ProductsStatePreloadingGuard to preload entities into store. Used it in routes configuration to preload products everywhere, where it is necessary.    
+2. Applied @ngrx/router-store.  
+  2.1. Implemented navigation actions GO, FORWARD and BACK.  
+  2.2. Implemented getProductByUrl selector.  
+  2.3. Implemented facade pattern.  
+  2.4. Substituted every usage of Router with RouterFacade.  
+3. Applied @ngrx/store-devtools for development environment.  
+
 Version 6 (http)     
   
 1. Added json server and implemented backend for existing functionality.  
