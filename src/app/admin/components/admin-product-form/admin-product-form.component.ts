@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-
-import { pluck } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 
 import { ProductModel } from './../../../products/models/product.model';
-import { ProductsService } from './../../../products/services/products.service';
+import { ProductsFacade } from 'src/app/core/@ngrx/products/products.facade';
+import { RouterFacade } from 'src/app/core/@ngrx/router/router.facade';
 
 @Component({
   selector: 'app-admin-product-form',
@@ -16,24 +15,22 @@ export class AdminProductFormComponent implements OnInit {
   isEdit = true;
 
   constructor(
-    private productsService: ProductsService,
+    private productsFacade: ProductsFacade,
     private activatedRoute: ActivatedRoute,
-    private router: Router) { }
+    private routerFacade: RouterFacade) { }
 
   ngOnInit() {
-    this.activatedRoute.data.pipe(pluck('product')).subscribe((product: ProductModel) => {
+    this.productsFacade.selectedProductByUrl.subscribe((product: ProductModel) => {
       this.product = { ...product };
       this.isEdit = this.activatedRoute.snapshot.url.length === 3;
     });
   }
 
   onSave() {
-    this.productsService.upsertProduct(this.product).subscribe(_ =>
-      this.router.navigateByUrl('/admin/products'));
+    this.productsFacade.updateProduct({ product: this.product });
   }
 
   onDelete() {
-    this.productsService.deleteProduct(this.product.id).subscribe(_ =>
-      this.router.navigateByUrl('/admin/products'));
+    this.productsFacade.deleteProduct({ product: this.product });
   }
 }

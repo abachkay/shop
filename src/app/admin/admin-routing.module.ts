@@ -6,15 +6,28 @@ import { AdminComponent } from './components/admin/admin.component';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminProductFormComponent } from './components/admin-product-form/admin-product-form.component';
 import { AdminProductFormResolveGuard } from './components/admin/guards/admin-product-form-resolve.guard';
+import { ProductsStatePreloadingGuard } from '../products/guards/products-state-preloading.guard';
 
 const routes: Routes = [{
   path: '',
   component: AdminComponent,
   children: [
-    { path: '', redirectTo: '/admin/products', pathMatch: 'full' },
-    { path: 'products', component: AdminProductsComponent },
-    { path: 'product/add', component: AdminProductFormComponent },
     {
+      path: '',
+      redirectTo: '/admin/products',
+      pathMatch: 'full'
+    },
+    {
+      canActivate: [ProductsStatePreloadingGuard],
+      path: 'products',
+      component: AdminProductsComponent
+    },
+    {
+      path: 'product/add',
+      component: AdminProductFormComponent
+    },
+    {
+      canActivate: [ProductsStatePreloadingGuard],
       path: 'product/edit/:productID',
       component: AdminProductFormComponent,
       resolve: {

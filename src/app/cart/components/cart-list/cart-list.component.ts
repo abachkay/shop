@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { CartService } from 'src/app/cart/services/cart.service';
 import { CartProductModel } from '../../models/cart-product.model';
+import { RouterFacade } from 'src/app/core/@ngrx/router/router.facade';
 
 @Component({
   templateUrl: './cart-list.component.html',
@@ -23,7 +23,7 @@ export class CartListComponent implements OnInit {
 
   constructor(
     private cartService: CartService,
-    private router: Router) { }
+    private routerFacade: RouterFacade) { }
 
   ngOnInit() {
     this.cartProducts = this.cartService.cartProducts;
@@ -42,6 +42,6 @@ export class CartListComponent implements OnInit {
   }
 
   onGoToOrder() {
-    this.router.navigateByUrl('/order');
+    this.routerFacade.goTo({ path: ['order'] });
   }
 }

@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Router, Resolve, ActivatedRouteSnapshot } from '@angular/router';
+import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
 import { ProductsService } from 'src/app/products/services/products.service';
 import { ProductModel } from './../../../../products/models/product.model';
+import { RouterFacade } from 'src/app/core/@ngrx/router/router.facade';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ import { ProductModel } from './../../../../products/models/product.model';
 export class AdminProductFormResolveGuard implements Resolve<ProductModel> {
   constructor(
     private productsService: ProductsService,
-    private router: Router
+    private routerFacade: RouterFacade
   ) { }
 
   resolve(route: ActivatedRouteSnapshot): Observable<ProductModel | null> {
@@ -28,12 +29,12 @@ export class AdminProductFormResolveGuard implements Resolve<ProductModel> {
         if (product) {
           return product;
         } else {
-          this.router.navigate(['/admin/products']);
+          this.routerFacade.goTo({ path: ['/admin/products'] });
           return null;
         }
       }),
       catchError(() => {
-        this.router.navigate(['/admin/products']);
+        this.routerFacade.goTo({ path: ['/admin/products'] });
 
         return of(null);
       })

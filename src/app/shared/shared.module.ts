@@ -13,7 +13,6 @@ import { OrderByPipe } from './pipes/order-by.pipe';
   imports: [
     CommonModule, RouterModule, HttpClientModule
   ],
-  // HttpClientModule - надо только один раз подключить в AppModule
-  exports: [HighlightDirective, ClickHighlightDirective, OrderByPipe, CommonModule, FormsModule, RouterModule, HttpClientModule]
+  exports: [HighlightDirective, ClickHighlightDirective, OrderByPipe, CommonModule, FormsModule, RouterModule]
 })
 export class SharedModule { }

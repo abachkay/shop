@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { CartService } from 'src/app/cart/services/cart.service';
+import { RouterFacade } from 'src/app/core/@ngrx/router/router.facade';
 
 @Component({
   templateUrl: './order.component.html',
@@ -12,7 +12,7 @@ export class OrderComponent implements OnInit {
 
   constructor(
     private cartService: CartService,
-    private router: Router
+    private routerFacade: RouterFacade
   ) {
   }
 
@@ -24,6 +24,6 @@ export class OrderComponent implements OnInit {
     console.log(`You created an order for ${this.totalSum}`);
 
     this.cartService.removeAllProducts();
-    this.router.navigate(['products-list']);
+    this.routerFacade.goTo({ path: ['products-list'] });
   }
 }

@@ -3,19 +3,19 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { ProductModel } from '../models/product.model';
-import { ProductsService } from '../services/products.service';
+import { ProductsFacade } from 'src/app/core/@ngrx/products/products.facade';
 
 @Component({
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
-  products: Observable<ProductModel[]>;
+  products: Observable<readonly ProductModel[]>;
 
   constructor(
-    private productsService: ProductsService) { }
+    private productsFacade: ProductsFacade) { }
 
   ngOnInit() {
-    this.products = this.productsService.getProducts();
+    this.products = this.productsFacade.products;
   }
 }

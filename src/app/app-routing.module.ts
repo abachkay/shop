@@ -9,6 +9,7 @@ import { CartListComponent } from './cart/components/cart-list/cart-list.compone
 import { ProductComponent } from './products/product/product.component';
 import { OrderComponent } from './orders/components/order/order.component';
 import { LoginComponent } from './layout/components/login/login.component';
+import { ProductsStatePreloadingGuard } from './products/guards/products-state-preloading.guard';
 
 const routes: Routes = [
   {
@@ -16,10 +17,12 @@ const routes: Routes = [
     component: AboutComponent
   },
   {
+    canActivate: [ProductsStatePreloadingGuard],
     path: 'products-list',
     component: ProductListComponent
   },
   {
+    canActivate: [ProductsStatePreloadingGuard],
     path: 'product/:productID',
     component: ProductComponent
   },

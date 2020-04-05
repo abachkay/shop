@@ -4,6 +4,7 @@ import { CanActivate, CanLoad, Router, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { UserService } from '../services/user.service';
+import { RouterFacade } from '../@ngrx/router/router.facade';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ import { UserService } from '../services/user.service';
 export class AdminGuard implements CanActivate, CanLoad {
   constructor(
     private userService: UserService,
-    private router: Router) { }
+    private routerFacade: RouterFacade) { }
 
   canActivate(): | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.checkLogin();
@@ -26,7 +27,7 @@ export class AdminGuard implements CanActivate, CanLoad {
       return true;
     }
 
-    this.router.navigate(['/login']);
+    this.routerFacade.goTo({ path: ['login'] });
 
     return false;
   }

@@ -1,7 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { Router } from '@angular/router';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { OrdersModule } from './orders/orders.module';
 import { AppComponent } from './app.component';
@@ -13,6 +15,8 @@ import { PathNotFoundComponent } from './layout/components/path-not-found/path-n
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './layout/components/login/login.component';
 import { TimingInterceptor } from './core/interceptors/timing-interceptor';
+import { RootStoreModule } from './core/@ngrx/root-store.module';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -24,9 +28,12 @@ import { TimingInterceptor } from './core/interceptors/timing-interceptor';
   imports: [
     SharedModule,
     BrowserModule,
+    HttpClientModule,
     ProductsModule,
     CartModule,
     OrdersModule,
+    RootStoreModule,
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
     AppRoutingModule
   ],
   providers: [

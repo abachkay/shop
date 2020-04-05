@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { ProductModel } from 'src/app/products/models/product.model';
-import { ProductsService } from 'src/app/products/services/products.service';
+import { ProductsFacade } from 'src/app/core/@ngrx/products/products.facade';
 
 @Component({
   selector: 'app-admin-products',
@@ -11,12 +11,12 @@ import { ProductsService } from 'src/app/products/services/products.service';
   styleUrls: ['./admin-products.component.css']
 })
 export class AdminProductsComponent implements OnInit {
-  products: Observable<ProductModel[]>;
+  products: Observable<readonly ProductModel[]>;
 
   constructor(
-    private productsService: ProductsService) { }
+    private productsFacade: ProductsFacade) { }
 
   ngOnInit() {
-    this.products = this.productsService.getProducts();
+    this.products = this.productsFacade.products;
   }
 }
