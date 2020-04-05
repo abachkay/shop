@@ -23,8 +23,8 @@ export class ProductsFacade {
     this.selectedProductByUrl = this.store.pipe(select(selectSelectedProductByUrl));
   }
 
-  updateProduct(props: { product: ProductModel }) {
-    this.store.dispatch(ProductsActions.updateProduct(props));
+  upsertProduct(props: { product: ProductModel }) {
+    this.store.dispatch(ProductsActions.upsertProduct(props));
   }
 
   deleteProduct(props: { product: ProductModel }) {

@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 
 import { Action } from '@ngrx/store';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import * as ProductsActions from './products.actions';
-import * as RouterActions from '../router/router.actions';
 
 import { Observable, of } from 'rxjs';
 import { concatMap, pluck, switchMap, map, catchError } from 'rxjs/operators';
 
+import * as ProductsActions from './products.actions';
+import * as RouterActions from '../router/router.actions';
 import { ProductModel } from '../../../products/models/product.model';
 import { ProductsService } from 'src/app/products/services/products.service';
 
@@ -26,13 +26,13 @@ export class ProductsEffects {
       catchError(error => of(ProductsActions.getProductsError(error)))
     ));
 
-  updateProduct: Observable<Action> = createEffect(() => this.actions
+  upsertProduct: Observable<Action> = createEffect(() => this.actions
     .pipe(
-      ofType(ProductsActions.updateProduct),
+      ofType(ProductsActions.upsertProduct),
       pluck('product'),
       concatMap((product) => this.productsService.upsertProduct(product)),
-      map(upsertResult => ProductsActions.updateProductSuccess(upsertResult)),
-      catchError(error => of(ProductsActions.updateProductError(error)))
+      map(upsertResult => ProductsActions.upsertProductSuccess(upsertResult)),
+      catchError(error => of(ProductsActions.upsertProductError(error)))
     ));
 
   deleteProduct: Observable<Action> = createEffect(() =>
@@ -40,13 +40,13 @@ export class ProductsEffects {
       ofType(ProductsActions.deleteProduct),
       pluck('product'),
       concatMap((product) => this.productsService.deleteProduct(product)),
-      map(updatedProduct => ProductsActions.deleteProductSuccess({ product: (updatedProduct as ProductModel) })),
+      map(upsertedProduct => ProductsActions.deleteProductSuccess({ product: (upsertedProduct as ProductModel) })),
       catchError(error => of(ProductsActions.deleteProductError(error))))
   );
 
   upsertDeleteProductSuccess: Observable<Action> = createEffect(() =>
     this.actions.pipe(
-      ofType(ProductsActions.updateProductSuccess, ProductsActions.deleteProductSuccess),
+      ofType(ProductsActions.upsertProductSuccess, ProductsActions.deleteProductSuccess),
       map(() => RouterActions.go({ path: ['admin', 'products'] })))
   );
 }

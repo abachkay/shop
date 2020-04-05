@@ -27,7 +27,7 @@ export class AdminProductFormComponent implements OnInit {
   }
 
   onSave() {
-    this.productsFacade.updateProduct({ product: this.product });
+    this.productsFacade.upsertProduct({ product: this.product });
   }
 
   onDelete() {

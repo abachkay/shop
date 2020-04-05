@@ -11,11 +11,11 @@ const reducer = createReducer(
     adapter.addAll(products, { ...state, loading: false, loaded: true })),
   on(ProductsActions.getProductsError, (state, { error }) => ({ ...state, loading: false, loaded: false, error })),
 
-  on(ProductsActions.updateProduct, state => ({ ...state })),
-  on(ProductsActions.updateProductSuccess, (state, { product, isNew }) => isNew
+  on(ProductsActions.upsertProduct, state => ({ ...state })),
+  on(ProductsActions.upsertProductSuccess, (state, { product, isNew }) => isNew
     ? adapter.addOne(product, state)
     : adapter.updateOne({ id: product.id, changes: product }, state)),
-  on(ProductsActions.updateProductError, ProductsActions.deleteProductError, (state, { error }) => ({ ...state, error })),
+  on(ProductsActions.upsertProductError, ProductsActions.deleteProductError, (state, { error }) => ({ ...state, error })),
 
   on(ProductsActions.deleteProduct, state => ({ ...state })),
   on(ProductsActions.deleteProductSuccess, (state, { product }) => adapter.removeOne(product.id, state))
