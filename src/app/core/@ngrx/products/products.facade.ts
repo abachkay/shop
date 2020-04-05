@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 
 import { ProductModel } from 'src/app/products/models/product.model';
 import { AppState } from '../app.state';
-import { selectProductsData, selectProductsError, selectSelectedProductByUrl } from './products.selectors';
+import { selectProductsData, selectProductsError, getProductByUrl } from './products.selectors';
 import * as ProductsActions from './products.actions';
 
 @Injectable({
@@ -20,7 +20,7 @@ export class ProductsFacade {
   constructor(private store: Store<AppState>) {
     this.products = this.store.pipe(select(selectProductsData));
     this.productsError = this.store.pipe(select(selectProductsError));
-    this.selectedProductByUrl = this.store.pipe(select(selectSelectedProductByUrl));
+    this.selectedProductByUrl = this.store.pipe(select(getProductByUrl));
   }
 
   upsertProduct(props: { product: ProductModel }) {

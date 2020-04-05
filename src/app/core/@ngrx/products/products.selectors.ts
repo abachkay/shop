@@ -9,7 +9,7 @@ export const { selectEntities: selectProductsEntities, selectAll: selectProducts
 export const selectProductsError = createSelector(selectProductsState, (state: ProductsState) => state.error);
 export const selectProductsLoaded = createSelector(selectProductsState, (state: ProductsState) => state.loaded);
 
-export const selectSelectedProductByUrl = createSelector(selectProductsEntities, selectRouterState,
+export const getProductByUrl = createSelector(selectProductsEntities, selectRouterState,
   (products, router): ProductModel => {
     const productID = router.state.params.productID;
     if (productID) {
