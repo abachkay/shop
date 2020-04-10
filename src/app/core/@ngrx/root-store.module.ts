@@ -33,6 +33,7 @@ import { ProductsEffects } from './products/products.effects';
       routerState: RouterState.Minimal,
       serializer: CustomSerializer
     }),
+    // В двух местах подключается, тут и в AppModule
     !environment.production ? StoreDevtoolsModule.instrument() : [],
   ]
 })
