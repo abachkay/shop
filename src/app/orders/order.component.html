@@ -1,0 +1,66 @@
+<p> Order for: {{totalSum | currency}} </p>
+<form [formGroup]="orderForm" (ngSubmit)="onConfirmOrder()">
+  <div> First Name </div>
+  <div>
+    <input type="text" placeholder="(required)" formControlName="firstName" />
+    <div class="validation-error"> {{getValidationMessages('firstName')}} </div>
+  </div>
+  <br>
+
+  <div> Last Name </div>
+  <div>
+    <input type="text" placeholder="(required)" formControlName="lastName" />
+    <div class="validation-error"> {{getValidationMessages('lastName')}} </div>
+  </div>
+  <br>
+
+  <div> Email </div>
+  <div>
+    <input required appEmailValidator type="text" placeholder="(required)" formControlName="email" />
+    <div *ngIf="(orderForm.get('email').touched || orderForm.get('email').dirty) && orderForm.get('email').errors">
+      <div class="validation-error" *ngIf="orderForm.get('email').hasError('required')"> Email is required. </div>
+      <div class="validation-error" *ngIf="orderForm.get('email').hasError('email')">
+        It should be a valid Gmail email (should end with '@gmail.com').
+      </div>
+    </div>
+  </div>
+  <br>
+
+  <div formArrayName="phoneNumbers">
+    <div *ngFor="let phoneNumber of phoneNumbersFormArray.controls; let i = index" [formGroupName]="i">
+      <div> Phone number {{i + 1}} </div>
+      <div>
+        <input type="tel" placeholder="(required)" formControlName="phoneNumber" />
+        <div class="validation-error"> {{getPhoneNumberValidationMessages(i)}} </div>
+      </div>
+      <div> <button *ngIf="i" type="button" (click)="onRemovePhoneNumber(i)"> Remove phone number </button> </div>
+      <br>
+    </div>
+  </div>
+
+  <div>
+    <button type="button" (click)="onAddPhoneNumber()"> Add another phone number </button>
+  </div>
+  <br>
+
+  <div>
+    <label>
+      <input type="checkbox" formControlName="inStorePickup" />
+      In-store pickup
+    </label>
+  </div>
+  <br>
+
+  <div *ngIf="!orderForm.get('inStorePickup').value">
+    <div> Address </div>
+    <div>
+      <textarea placeholder="(required)" formControlName="address"> </textarea>
+      <div class="validation-error"> {{getValidationMessages('address')}} </div>
+    </div>
+  </div>
+  <br>
+
+  <div>
+    <button type="submit" [disabled]="!orderForm.valid"> Confirm order </button>
+  </div>
+</form>

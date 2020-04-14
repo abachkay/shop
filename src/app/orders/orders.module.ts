@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { SharedModule } from '../shared/shared.module';
-import { OrderComponent } from './components/order/order.component';
+import { OrderComponent } from './order.component';
 
 @NgModule({
   declarations: [OrderComponent],

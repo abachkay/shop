@@ -16,7 +16,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './layout/components/login/login.component';
 import { TimingInterceptor } from './core/interceptors/timing-interceptor';
 import { RootStoreModule } from './core/@ngrx/root-store.module';
-import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [

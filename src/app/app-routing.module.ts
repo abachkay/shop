@@ -7,7 +7,7 @@ import { AboutComponent } from './layout/components/about/about.component';
 import { ProductListComponent } from './products/product-list/product-list.component';
 import { CartListComponent } from './cart/components/cart-list/cart-list.component';
 import { ProductComponent } from './products/product/product.component';
-import { OrderComponent } from './orders/components/order/order.component';
+import { OrderComponent } from './orders/order.component';
 import { LoginComponent } from './layout/components/login/login.component';
 import { ProductsStatePreloadingGuard } from './products/guards/products-state-preloading.guard';
 
