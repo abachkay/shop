@@ -1,3 +1,15 @@
+Version 8 (Forms)    
+1. Added a form for OrderComponent, using reative forms approach.  
+  1.1. Added field First Name, validations: required (default), userNameValid (custom - checks if user name does not contain anything except letters).  
+  1.2. Added field Last Name, validations are same as for First Name.  
+  1.3. Added field Email, used directives for validations: required (default), appEmailValidator (custom - checks if it is a valid email and if it is Gmail).  
+  1.4. Added field Phone Number, user can add multiple phone numbers, but he has to enter at least one. Validations: required (default), pattern (default, used regex for phone number).  
+  1.5. Added field In-Store Pickup. It is a checkbox, no validations.  
+  1.6. Added field Address. It is visible only if In-Store Pickup is unchecked, validations: required (default).  
+2. Added a class for validation errors (red text color).  
+3. Added CustomValidations and EmailValidationDirective into Shared module.  
+4. Created OrderValidationMessagesService. It contains validation messages and a method, which fetches validation errors of a control and composes a string of concated validation messages for that control. This method is used in OrderComponent to display validation messages for all controls except Email.  
+
 Version 7 (NgRx)  
 1. Applied @ngrx/store, @ngrx/effects for Products.  
   1.1. Created state, actions, reducers, selectors, effects.  
